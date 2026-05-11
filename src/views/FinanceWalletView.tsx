@@ -109,7 +109,7 @@ export function FinanceWalletView() {
       description: desc,
       at: new Date().toISOString(),
     };
-    setTransactions([row, ...transactions]);
+    setTransactions((prev) => [row, ...prev]);
     setAmountRaw("");
     setDescriptionRaw("");
   }
@@ -117,46 +117,46 @@ export function FinanceWalletView() {
   return (
     <div className="space-y-8">
       <div>
-        <h2 className="text-xl font-semibold tracking-tight text-white">Finance & wallet</h2>
-        <p className="mt-1 text-sm text-zinc-400">
+        <h2 className="text-xl font-semibold tracking-tight text-zinc-900">Finance & wallet</h2>
+        <p className="mt-1 text-sm text-zinc-600">
           Every control below writes to local storage—the inputs, toggles, and Save button are wired for
           real use.
         </p>
       </div>
 
       <div className="grid gap-3 sm:grid-cols-3">
-        <div className="rounded-2xl bg-gradient-to-br from-emerald-500/15 via-zinc-900 to-zinc-900 p-4 ring-1 ring-emerald-500/35">
-          <p className="text-xs uppercase tracking-[0.2em] text-emerald-200/85">Total balance</p>
-          <p className="mt-2 text-2xl font-semibold text-white sm:text-3xl">{fmt.format(totalBalance)}</p>
+        <div className="rounded-2xl bg-gradient-to-br from-emerald-50 via-white to-zinc-50 p-4 ring-1 ring-emerald-200 shadow-sm">
+          <p className="text-xs uppercase tracking-[0.2em] text-emerald-800">Total balance</p>
+          <p className="mt-2 text-2xl font-semibold text-zinc-900 sm:text-3xl">{fmt.format(totalBalance)}</p>
           <p className="mt-1 text-xs text-zinc-500">
             Across {wallets.length} wallet{walletPlural(wallets)}
           </p>
         </div>
-        <div className="rounded-2xl bg-zinc-900/65 p-4 ring-1 ring-zinc-800">
+        <div className="rounded-2xl bg-white p-4 ring-1 ring-zinc-200 shadow-sm">
           <p className="flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-zinc-500">
-            <PiggyBank className="size-3.5 text-emerald-400" aria-hidden />
+            <PiggyBank className="size-3.5 text-emerald-600" aria-hidden />
             Income logged
           </p>
-          <p className="mt-2 text-2xl font-semibold text-emerald-200">{fmt.format(totalIncome)}</p>
+          <p className="mt-2 text-2xl font-semibold text-emerald-700">{fmt.format(totalIncome)}</p>
           <p className="mt-1 text-xs text-zinc-500">{transactions.filter((t) => t.kind === "income").length}{" "}
             transactions</p>
         </div>
-        <div className="rounded-2xl bg-zinc-900/65 p-4 ring-1 ring-zinc-800">
+        <div className="rounded-2xl bg-white p-4 ring-1 ring-zinc-200 shadow-sm">
           <p className="flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-zinc-500">
-            <MinusCircle className="size-3.5 text-orange-400" aria-hidden />
+            <MinusCircle className="size-3.5 text-orange-600" aria-hidden />
             Spending (sum)
           </p>
-          <p className="mt-2 text-2xl font-semibold text-orange-300">{fmt.format(totalSpent)}</p>
+          <p className="mt-2 text-2xl font-semibold text-orange-600">{fmt.format(totalSpent)}</p>
           <p className="mt-1 text-xs text-zinc-500">{transactions.filter((t) => t.kind === "expense").length}{" "}
             transactions</p>
         </div>
       </div>
 
-      <section className="rounded-2xl bg-zinc-900/55 p-4 ring-1 ring-zinc-800 sm:p-5">
-        <div className="flex flex-wrap items-start justify-between gap-4 border-b border-zinc-800/90 pb-4">
+      <section className="rounded-2xl bg-white p-4 ring-1 ring-zinc-200 shadow-sm sm:p-5">
+        <div className="flex flex-wrap items-start justify-between gap-4 border-b border-zinc-200 pb-4">
           <div>
-            <h3 className="text-lg font-semibold text-white">Wallets</h3>
-            <p className="mt-1 text-sm text-zinc-400">
+            <h3 className="text-lg font-semibold text-zinc-900">Wallets</h3>
+            <p className="mt-1 text-sm text-zinc-600">
               Flip between cards/wallets — balances update from your saved ledger.
             </p>
           </div>
@@ -171,7 +171,7 @@ export function FinanceWalletView() {
                 }
                 onChange={(e) => setWalletIdPick(e.target.value)}
                 disabled={wallets.length === 0}
-                className="block w-full rounded-lg border border-zinc-700 bg-zinc-950 px-3 py-2 text-sm text-white outline-none transition focus:border-emerald-600/70 focus:ring-2 focus:ring-emerald-600/35 disabled:opacity-75"
+                className="block w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 outline-none shadow-sm transition focus:border-emerald-500 focus:ring-2 focus:ring-emerald-400/35 disabled:opacity-75"
               >
                 {wallets.map((wallet) => (
                   <option key={wallet.id} value={wallet.id}>
@@ -181,9 +181,9 @@ export function FinanceWalletView() {
               </select>
             </label>
             <div className="flex flex-1 items-end gap-2 sm:flex-none">
-              <div className="rounded-lg bg-emerald-500/10 px-3 py-2 ring-1 ring-emerald-500/25">
-                <p className="text-[10px] uppercase tracking-wide text-emerald-200">Balance here</p>
-                <p className="font-semibold text-white">
+              <div className="rounded-lg bg-emerald-50 px-3 py-2 ring-1 ring-emerald-200">
+                <p className="text-[10px] uppercase tracking-wide text-emerald-700">Balance here</p>
+                <p className="font-semibold text-zinc-900">
                   {fmt.format(balanceFor(walletIdPick, transactions))}
                 </p>
               </div>
@@ -195,13 +195,13 @@ export function FinanceWalletView() {
           <label className="flex min-w-[10rem] flex-1 gap-3 space-y-0">
             <div className="flex-1 space-y-1">
               <span className="flex items-center gap-1 text-xs font-semibold uppercase tracking-wide text-zinc-500">
-                <CreditCard className="size-3 text-zinc-500" aria-hidden /> New wallet name
+                <CreditCard className="size-3 text-zinc-400" aria-hidden /> New wallet name
               </span>
               <input
                 value={newWalletName}
                 onChange={(e) => setNewWalletName(e.target.value)}
                 placeholder="e.g. Debit card"
-                className="block w-full rounded-lg border border-zinc-700 bg-zinc-950 px-3 py-2 text-sm text-white placeholder:text-zinc-600 outline-none transition focus:border-emerald-600/70 focus:ring-2 focus:ring-emerald-600/35"
+                className="block w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 placeholder:text-zinc-400 outline-none shadow-sm transition focus:border-emerald-500 focus:ring-2 focus:ring-emerald-400/35"
               />
             </div>
           </label>
@@ -222,16 +222,16 @@ export function FinanceWalletView() {
             }}
             disabled={wallets.length === 1}
             title={wallets.length === 1 ? "Keep at least one wallet slot" : "Remove wallet and its ledger"}
-            className="inline-flex items-center gap-2 self-end rounded-lg border border-zinc-800 px-5 py-2 text-sm font-semibold text-red-400 hover:bg-red-950/35 disabled:pointer-events-none disabled:opacity-30"
+            className="inline-flex items-center gap-2 self-end rounded-lg border border-zinc-200 px-5 py-2 text-sm font-semibold text-red-600 hover:bg-red-50 disabled:pointer-events-none disabled:opacity-35"
           >
             Remove wallet
           </button>
         </div>
       </section>
 
-      <section className="rounded-2xl bg-zinc-900/55 p-4 ring-1 ring-zinc-800 sm:p-6">
-        <h3 className="text-lg font-semibold text-white">Log movement</h3>
-        <p className="text-sm text-zinc-400">
+      <section className="rounded-2xl bg-white p-4 ring-1 ring-zinc-200 shadow-sm sm:p-6">
+        <h3 className="text-lg font-semibold text-zinc-900">Log movement</h3>
+        <p className="text-sm text-zinc-600">
           Pick income or expense with the buttons below, enter real numbers for amount, describe it, hit
           Save.
         </p>
@@ -247,7 +247,7 @@ export function FinanceWalletView() {
                   className={
                     kind === "income"
                       ? "flex-1 rounded-lg bg-emerald-600 px-4 py-2 text-sm font-semibold text-white sm:flex-none"
-                      : "flex-1 rounded-lg bg-zinc-950 px-4 py-2 text-sm font-semibold text-emerald-200 ring-1 ring-zinc-700 hover:bg-zinc-900 sm:flex-none"
+                      : "flex-1 rounded-lg bg-white px-4 py-2 text-sm font-semibold text-emerald-700 ring-1 ring-zinc-300 shadow-sm hover:bg-zinc-50 sm:flex-none"
                   }
                 >
                   Income
@@ -257,8 +257,8 @@ export function FinanceWalletView() {
                   onClick={() => setKind("expense")}
                   className={
                     kind === "expense"
-                      ? "flex-1 rounded-lg bg-orange-700 px-4 py-2 text-sm font-semibold text-white sm:flex-none"
-                      : "flex-1 rounded-lg bg-zinc-950 px-4 py-2 text-sm font-semibold text-orange-300 ring-1 ring-zinc-700 hover:bg-zinc-900 sm:flex-none"
+                      ? "flex-1 rounded-lg bg-orange-600 px-4 py-2 text-sm font-semibold text-white sm:flex-none"
+                      : "flex-1 rounded-lg bg-white px-4 py-2 text-sm font-semibold text-orange-700 ring-1 ring-zinc-300 shadow-sm hover:bg-zinc-50 sm:flex-none"
                   }
                 >
                   Expense
@@ -276,7 +276,7 @@ export function FinanceWalletView() {
                 value={amountRaw}
                 onChange={(e) => setAmountRaw(e.target.value)}
                 placeholder="45.89"
-                className="block w-full rounded-lg border border-zinc-700 bg-zinc-950 px-3 py-2.5 text-sm text-white outline-none transition focus:border-emerald-600/70 focus:ring-2 focus:ring-emerald-600/35"
+                className="block w-full rounded-lg border border-zinc-300 bg-white px-3 py-2.5 text-sm text-zinc-900 outline-none shadow-sm transition focus:border-emerald-500 focus:ring-2 focus:ring-emerald-400/35"
               />
             </label>
 
@@ -289,12 +289,12 @@ export function FinanceWalletView() {
                 onChange={(e) => setDescriptionRaw(e.target.value)}
                 rows={4}
                 placeholder="Groceries, paycheck, brunch…"
-                className="block w-full resize-y rounded-lg border border-zinc-700 bg-zinc-950 px-3 py-2 text-sm text-white outline-none transition focus:border-emerald-600/70 focus:ring-2 focus:ring-emerald-600/35"
+                className="block w-full resize-y rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 outline-none shadow-sm transition focus:border-emerald-500 focus:ring-2 focus:ring-emerald-400/35"
               />
             </label>
 
             {formError ? (
-              <p className="text-sm font-medium text-red-400" role="status">
+              <p className="text-sm font-medium text-red-600" role="status">
                 {formError}
               </p>
             ) : null}
@@ -309,31 +309,31 @@ export function FinanceWalletView() {
             </button>
           </div>
 
-          <div className="space-y-2 rounded-xl border border-zinc-800 bg-zinc-950/40 p-3">
+          <div className="space-y-2 rounded-xl border border-zinc-200 bg-zinc-50 p-3 shadow-inner">
             <div className="flex items-center justify-between">
-              <h4 className="text-sm font-semibold text-white">Ledger</h4>
+              <h4 className="text-sm font-semibold text-zinc-900">Ledger</h4>
               <span className="text-xs uppercase tracking-wide text-zinc-500">Newest first</span>
             </div>
             <div className="max-h-[22rem] space-y-2 overflow-y-auto pr-1">
               {txsForPick.length === 0 ? (
-                <p className="rounded-lg border border-dashed border-zinc-700 px-3 py-6 text-center text-sm text-zinc-500">
+                <p className="rounded-lg border border-dashed border-zinc-300 bg-white px-3 py-6 text-center text-sm text-zinc-500 shadow-sm">
                   No saves yet — the list fills when you tap Save with valid fields.
                 </p>
               ) : (
                 txsForPick.map((t) => (
                   <article
                     key={t.id}
-                    className="rounded-lg bg-zinc-900/85 p-3 ring-1 ring-zinc-800/90"
+                    className="rounded-lg border border-zinc-200 bg-white p-3 shadow-sm"
                   >
                     <div className="flex items-start justify-between gap-3">
                       <div>
-                        <p className="text-sm font-medium text-white">{t.description}</p>
+                        <p className="text-sm font-medium text-zinc-900">{t.description}</p>
                         <p className="text-xs text-zinc-500">{formatWhen(t.at)}</p>
                       </div>
                       <span
                         className={[
                           "text-sm font-semibold",
-                          t.kind === "income" ? "text-emerald-300" : "text-orange-300",
+                          t.kind === "income" ? "text-emerald-700" : "text-orange-600",
                         ].join(" ")}
                       >
                         {t.kind === "income" ? "+" : "-"}

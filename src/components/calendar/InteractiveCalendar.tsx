@@ -93,28 +93,28 @@ export function InteractiveCalendar({ events, onEventsChange }: InteractiveCalen
       <section className="space-y-4">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
-            <h2 className="text-xl font-semibold tracking-tight text-white">Calendar</h2>
-            <p className="text-sm text-zinc-400">
+            <h2 className="text-xl font-semibold tracking-tight text-zinc-900">Calendar</h2>
+            <p className="text-sm text-zinc-600">
               {events.length} saved event{events.length === 1 ? "" : "s"} ·{" "}
               <span title="Events dated in this month">{eventCountForMonth}</span> this month
             </p>
           </div>
-          <div className="flex items-center gap-2 rounded-xl bg-zinc-900/70 p-1 ring-1 ring-zinc-800">
+          <div className="flex items-center gap-2 rounded-xl bg-white p-1 ring-1 ring-zinc-200 shadow-sm">
             <button
               type="button"
               onClick={() => setMonthCursor(addMonths(monthCursor, -1))}
-              className="inline-flex size-10 items-center justify-center rounded-lg text-zinc-300 hover:bg-zinc-800 hover:text-white"
+              className="inline-flex size-10 items-center justify-center rounded-lg text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900"
               aria-label="Previous month"
             >
               <ChevronLeft className="size-5" />
             </button>
-            <span className="min-w-[10.5rem] text-center text-sm font-medium text-white">
+            <span className="min-w-[10.5rem] text-center text-sm font-medium text-zinc-900">
               {formatMonthYear(monthCursor)}
             </span>
             <button
               type="button"
               onClick={() => setMonthCursor(addMonths(monthCursor, 1))}
-              className="inline-flex size-10 items-center justify-center rounded-lg text-zinc-300 hover:bg-zinc-800 hover:text-white"
+              className="inline-flex size-10 items-center justify-center rounded-lg text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900"
               aria-label="Next month"
             >
               <ChevronRight className="size-5" />
@@ -150,15 +150,15 @@ export function InteractiveCalendar({ events, onEventsChange }: InteractiveCalen
                 className={[
                   "relative min-h-[2.65rem] rounded-lg px-2 py-1.5 text-left text-sm font-medium transition-colors sm:min-h-[3rem]",
                   isSel
-                    ? "bg-emerald-500/25 text-emerald-100 ring-2 ring-emerald-500/50"
-                    : "bg-zinc-900/55 text-zinc-200 ring-1 ring-zinc-800 hover:bg-zinc-800",
-                  isToday && !isSel ? "shadow-[inset_0_0_0_1px_rgba(16,185,129,0.45)]" : "",
+                    ? "bg-emerald-50 text-emerald-950 ring-2 ring-emerald-400"
+                    : "bg-white text-zinc-900 ring-1 ring-zinc-200 hover:bg-zinc-50 shadow-sm",
+                  isToday && !isSel ? "shadow-[inset_0_0_0_1.5px_rgba(16,185,129,0.65)]" : "",
                 ].join(" ")}
               >
-                <span className={isToday ? "text-emerald-300" : ""}>{label}</span>
+                <span className={isToday ? "font-semibold text-emerald-700" : ""}>{label}</span>
                 {count > 0 ? (
                   <span
-                    className="absolute bottom-1 right-1 inline-flex size-5 items-center justify-center rounded-full bg-emerald-600/85 text-[10px] font-bold text-white"
+                    className="absolute bottom-1 right-1 inline-flex size-5 items-center justify-center rounded-full bg-emerald-600 text-[10px] font-bold text-white shadow-sm"
                     aria-hidden
                   >
                     {count > 9 ? "9+" : count}
@@ -170,10 +170,10 @@ export function InteractiveCalendar({ events, onEventsChange }: InteractiveCalen
         </div>
       </section>
 
-      <section className="space-y-4 rounded-2xl bg-zinc-900/55 p-4 ring-1 ring-zinc-800 sm:p-5">
+      <section className="space-y-4 rounded-2xl bg-white p-4 ring-1 ring-zinc-200 shadow-sm sm:p-5">
         <div>
-          <h3 className="text-lg font-semibold text-white">Selected day</h3>
-          <p className="text-sm text-zinc-400">
+          <h3 className="text-lg font-semibold text-zinc-900">Selected day</h3>
+          <p className="text-sm text-zinc-600">
             {selectedDate === todayIso ? "Today" : new Date(selectedDate + "T12:00:00").toLocaleDateString(undefined, {
               weekday: "long",
               month: "long",
@@ -183,40 +183,40 @@ export function InteractiveCalendar({ events, onEventsChange }: InteractiveCalen
           </p>
         </div>
 
-        <fieldset className="space-y-3 rounded-xl bg-zinc-950/55 p-3 ring-1 ring-zinc-800/90">
+        <fieldset className="space-y-3 rounded-xl bg-zinc-50 p-3 ring-1 ring-zinc-200">
           <legend className="px-1 text-xs font-semibold uppercase tracking-wide text-zinc-500">
             Add event
           </legend>
           <label className="block space-y-1">
-            <span className="text-xs font-medium text-zinc-400">Title</span>
+            <span className="text-xs font-medium text-zinc-600">Title</span>
             <input
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="e.g. Team sync"
-              className="block w-full rounded-lg border border-zinc-700 bg-zinc-950 px-3 py-2 text-sm text-white placeholder:text-zinc-600 outline-none ring-emerald-500/0 transition focus:border-emerald-600/70 focus:ring-2 focus:ring-emerald-600/35"
+              className="block w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 placeholder:text-zinc-400 outline-none shadow-sm ring-emerald-500/0 transition focus:border-emerald-500 focus:ring-2 focus:ring-emerald-400/35"
               autoComplete="off"
             />
           </label>
           <label className="block space-y-1">
-            <span className="text-xs font-medium text-zinc-400">Description</span>
+            <span className="text-xs font-medium text-zinc-600">Description</span>
             <textarea
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               rows={3}
               placeholder="Notes, agenda, links…"
-              className="block w-full resize-y rounded-lg border border-zinc-700 bg-zinc-950 px-3 py-2 text-sm text-white placeholder:text-zinc-600 outline-none ring-emerald-500/0 transition focus:border-emerald-600/70 focus:ring-2 focus:ring-emerald-600/35"
+              className="block w-full resize-y rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 placeholder:text-zinc-400 outline-none shadow-sm ring-emerald-500/0 transition focus:border-emerald-500 focus:ring-2 focus:ring-emerald-400/35"
             />
           </label>
           <label className="block space-y-1">
-            <span className="flex items-center gap-1.5 text-xs font-medium text-zinc-400">
-              <AlarmClock className="size-3.5 text-emerald-500/90" aria-hidden />
+            <span className="flex items-center gap-1.5 text-xs font-medium text-zinc-600">
+              <AlarmClock className="size-3.5 text-emerald-600" aria-hidden />
               Reminder (optional)
             </span>
             <input
               type="datetime-local"
               value={reminderAt}
               onChange={(e) => setReminderAt(e.target.value)}
-              className="block w-full rounded-lg border border-zinc-700 bg-zinc-950 px-3 py-2 text-sm text-white outline-none ring-emerald-500/0 transition focus:border-emerald-600/70 focus:ring-2 focus:ring-emerald-600/35"
+              className="block w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 outline-none shadow-sm ring-emerald-500/0 transition focus:border-emerald-500 focus:ring-2 focus:ring-emerald-400/35"
             />
           </label>
           <button
@@ -230,11 +230,11 @@ export function InteractiveCalendar({ events, onEventsChange }: InteractiveCalen
         </fieldset>
 
         <div className="space-y-2">
-          <h4 className="text-sm font-semibold text-zinc-300">
+          <h4 className="text-sm font-semibold text-zinc-800">
             Events on this day ({eventsForSelectedDate.length})
           </h4>
           {eventsForSelectedDate.length === 0 ? (
-            <p className="rounded-lg border border-dashed border-zinc-700 bg-zinc-950/40 px-3 py-4 text-sm text-zinc-500">
+            <p className="rounded-lg border border-dashed border-zinc-300 bg-zinc-50 px-3 py-4 text-sm text-zinc-500">
               No events yet — add one with the form above.
             </p>
           ) : (
@@ -242,18 +242,18 @@ export function InteractiveCalendar({ events, onEventsChange }: InteractiveCalen
               {eventsForSelectedDate.map((ev) => (
                 <li
                   key={ev.id}
-                  className="rounded-xl border border-zinc-800 bg-zinc-950/50 p-3 ring-1 ring-zinc-800/80"
+                  className="rounded-xl border border-zinc-200 bg-zinc-50 p-3 shadow-sm"
                 >
                   <div className="flex items-start justify-between gap-2">
                     <div className="min-w-0">
-                      <p className="font-medium text-white">{ev.title}</p>
+                      <p className="font-medium text-zinc-900">{ev.title}</p>
                       {ev.description ? (
-                        <p className="mt-1 whitespace-pre-wrap text-sm text-zinc-400">
+                        <p className="mt-1 whitespace-pre-wrap text-sm text-zinc-600">
                           {ev.description}
                         </p>
                       ) : null}
                       {ev.reminderAt ? (
-                        <p className="mt-2 inline-flex items-center gap-1.5 rounded-md bg-emerald-500/10 px-2 py-1 text-xs font-medium text-emerald-300 ring-1 ring-emerald-500/25">
+                        <p className="mt-2 inline-flex items-center gap-1.5 rounded-md bg-emerald-50 px-2 py-1 text-xs font-medium text-emerald-800 ring-1 ring-emerald-200">
                           <AlarmClock className="size-3.5" aria-hidden />
                           {formatReminderBadge(ev.reminderAt)}
                         </p>
@@ -262,7 +262,7 @@ export function InteractiveCalendar({ events, onEventsChange }: InteractiveCalen
                     <button
                       type="button"
                       onClick={() => deleteEvent(ev.id)}
-                      className="inline-flex shrink-0 items-center justify-center rounded-lg p-2 text-zinc-500 hover:bg-red-950/40 hover:text-red-300"
+                      className="inline-flex shrink-0 items-center justify-center rounded-lg p-2 text-zinc-500 hover:bg-red-50 hover:text-red-600"
                       aria-label={`Delete event ${ev.title}`}
                     >
                       <Trash2 className="size-4" />

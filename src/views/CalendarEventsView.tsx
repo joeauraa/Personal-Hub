@@ -10,7 +10,7 @@ export function CalendarEventsView() {
 
   return (
     <div className="space-y-1">
-      <p className="text-sm text-zinc-400">
+      <p className="text-sm text-zinc-600">
         Pick a date, then add titles, descriptions, and optional reminders. Everything stays on this device
         via local storage.
       </p>
